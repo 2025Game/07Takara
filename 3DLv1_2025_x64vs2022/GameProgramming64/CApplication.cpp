@@ -21,74 +21,38 @@ CCharacterManager* CApplication::CharacterManager()
 
 void CApplication::Start()
 {
-	//Sound
-	mSoundBgm.Load(SOUND_BGM);
-	mSoundOver.Load(SOUND_OVER);
-
-	mFont.Load("FontWhite.png", 1, 64);
-	mState = EState::EPLAY;
-	mpGame = new CGame();
-	//状態をスタートにする
-	mState = EState::ESTART;
 
 }
 
 void CApplication::Update()
 {
-	switch (mState)
-	{
-	case EState::EPLAY:
-		mpGame->Update();
-		//ゲームクリアか判定
-		if (mpGame->IsClear())
-		{	//状態をゲームクリアにする
-			mState = EState::ECLEAR;
-		}
-		//ゲームオーバーか判定
-		if (mpGame->IsOver())
-		{	//状態をゲームオーバーにする
-			mState = EState::EOVER;
-			//BGMストップ
-			mSoundBgm.Stop();
-			mSoundOver.Play();
-		}
-		break;
-	case EState::ESTART:	//状態がスタート
-		mpGame->Start();	//スタート画面表示
-		//Enterキーが押されたら
-		if (mInput.Key(VK_RETURN))
-		{	//状態をプレイ中にする
-			mState = EState::EPLAY;
-			//BGMリピート再生
-			mSoundBgm.Repeat();
-		}
-		break;
-	case EState::EOVER:
-		//ゲームオーバー処理
-		mpGame->Over();
-		//エンターキー入力時
-		if (mInput.Key(VK_RETURN))
-		{	//ゲームのインスタンス削除
-			delete mpGame;
-			//ゲームのインスタンス生成
-			mpGame = new CGame();
-			//状態をスタートにする
-			mState = EState::ESTART;
-		}
-		break;
-	case EState::ECLEAR:
-		//ゲームクリア処理
-		mpGame->Clear();
-		//エンターキー入力時
-		if (mInput.Key(VK_RETURN))
-		{	//ゲームのインスタンス削除
-			delete mpGame;
-			//ゲームのインスタンス生成
-			mpGame = new CGame();
-			//状態をスタートにする
-			mState = EState::ESTART;
-		}
-		break;
-	}
-}
 
+	//視点の設定
+	//gluLookAt(視点x,視点y,視点z,中心x,中心y,中心ｚ,上向ｘ,上向y,上向z)
+	gluLookAt(1.0f, 2.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
+	//描画開始
+	//glBegin(形)
+	//GL_TRIANGLES:三角形
+	glBegin(GL_TRIANGLES);
+
+	//法線（面の向き)の設定
+	//glNormal3f(x座標、ｙ座標、ｚ座)
+	glNormal3f(0.0f, 1.0f, 0.0f);
+
+	//頂点座標の設定
+	//glVertex3f(ｘ座標、Y座標、ｚ座標)
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -0.5f);
+
+	//面の向きはｚ軸方向
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-0.5f, 0.0f, 0.0f);
+
+	//描画終了
+	glEnd();
+
+}
