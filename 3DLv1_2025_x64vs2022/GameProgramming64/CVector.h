@@ -1,12 +1,18 @@
 #pragma once
 #ifndef CVECTOR_H
 #define CVECTOR_H
+#include"CVector.h"
 /*
 ベクトルクラス
 ベクトルデータを扱います
 */
 class CVector {
 public:
+	//デフォルトコントラクタ
+	CVector();
+	//コントラクタ
+	//CVector(X座標、Y座標、Z座標）
+	CVector(float x, float y, float z);
 	//各軸での値の設定
 	//Set(x座標,y座標,z座標,)
 	void Set(float x,float y,float z);
