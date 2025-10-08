@@ -8,10 +8,12 @@
 #include "CMiss.h"
 #include "CCharacterManager.h"
 #include "CGame.h"
+#include"CVector.h"
 
 class CApplication
 {
 public:
+
 	static CTexture* Texture();
 	static CCharacterManager* CharacterManager();
 	enum class EState
@@ -40,4 +42,5 @@ private:
 	CBullet* mpBullet;
 	static CTexture mTexture;
 	CEnemy* mpEnemy;
+	CVector mEye;
 };

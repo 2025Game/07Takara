@@ -8,6 +8,17 @@
 */
 class CVector {
 public:
+
+	// -演算子のオーバーロード
+		//CVector - CVector の演算結果を返す
+		CVector operator-(const CVector & v) const;
+
+
+
+	//+演算子のオーバーロード
+	//CVector + CVector の演算結果を返す
+	CVector operator+(const CVector& v) const;
+
 	//デフォルトコントラクタ
 	CVector();
 	//コントラクタ
