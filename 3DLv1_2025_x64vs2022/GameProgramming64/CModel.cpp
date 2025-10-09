@@ -30,7 +30,25 @@ void CModel::Load(const char* obj, const char* mtl) {
 		//入力した値をコンソールに出力する
 		printf("%s", buf);
 	}
+	//ファイルのオープン
+	//fopen(ファイル名,モード)
+	//オープンできない時はNULLを返す
+	fp = fopen(obj, "r");
+	//ファイルオープンエラーの判定
+	//fpがNULLの時はエラー
+	if (fp == NULL) {
+		//コンソールにエラー出力して戻る
+		printf("%s file open error￥n", obj);
+		return;
+	}
 
+	//ファイルから1行入力
+	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
+	//ファイルの最後になるとNULLを返す
+	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		//入力した値をコンソールに出力する
+		printf("%s", buf);
+	}
 	//ファイルのクローズ
 	fclose(fp);
 }
