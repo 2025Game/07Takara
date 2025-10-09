@@ -9,7 +9,7 @@
 #include "CCharacterManager.h"
 #include "CGame.h"
 #include"CVector.h"
-
+#include"CModel.h"
 class CApplication
 {
 public:
@@ -29,6 +29,9 @@ public:
 	//繰り返し実行するプログラム
 	void Update();
 private:
+	//モデルクラスのインスタンス作成
+	CModel mModel;
+
 	CSound mSoundBgm;
 	CSound mSoundOver;
 

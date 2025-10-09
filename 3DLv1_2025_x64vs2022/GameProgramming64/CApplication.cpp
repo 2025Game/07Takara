@@ -5,8 +5,12 @@
 #include "CVector.h"
 #include"CTriangle.h"
 
+
 #define SOUND_BGM "res\\mario.wav" //BGM音声ファイル
 #define SOUND_OVER "res\\mdai.wav" //ゲームオーバー音声ファイル
+//モデルデータの指定
+#define MODEL_OBJ "res\\obj.obj", "res\\obj.mtl"
+
 
 CCharacterManager CApplication::mCharacterManager;
 CTexture CApplication::mTexture;
