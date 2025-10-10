@@ -18,7 +18,7 @@ public:
 private:
 	//ŽOŠpŒ`‚Ì‰Â•Ï’·”z—ñ
 	std::vector<CTriangle> mTriangles;
-
+	std::vector<CTriangle> normal;
 };
 
 #endif
