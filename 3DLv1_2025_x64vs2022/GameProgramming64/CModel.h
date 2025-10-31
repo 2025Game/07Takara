@@ -4,12 +4,14 @@
 #include"CTriangle.h"
 #ifndef CMODEL_H
 #define CMODEL_H
+#include"CMaterial.h"
 /*
 モデルクラス
 モデルデータの入力や表示
 */
 class CModel {
 public:
+	~CModel();
 	//描画
 	void Render();
 	//モデルファイルの入力
@@ -19,6 +21,8 @@ private:
 	//三角形の可変長配列
 	std::vector<CTriangle> mTriangles;
 	std::vector<CTriangle> normal;
+	//マテリアルポインタの可変長配列
+	std::vector<CMaterial*>mpMaterials;
 };
 
 #endif

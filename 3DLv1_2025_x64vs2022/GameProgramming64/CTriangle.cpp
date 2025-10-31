@@ -1,6 +1,19 @@
 #include "CTriangle.h"
 #include"glut.h"
 
+
+
+
+int CTriangle::MaterialIdx()
+{
+	return mMaterialIdx;
+}
+
+void CTriangle::MaterialIdx(int idx)
+{
+	mMaterialIdx = idx;
+}
+
 //頂点座標設定
 //Vertex(頂点１，頂点２，頂点３，)
 void CTriangle::Vertex(const CVector& v0, const CVector& v1, const CVector& v2) {
@@ -19,6 +32,8 @@ void CTriangle::Normal(const CVector& n) {
 	mN[0] = mN[1] = mN[2] = n;
 }
 
+
+
 //描画
 void CTriangle::Render() {
 	glBegin(GL_TRIANGLES);
@@ -31,3 +46,5 @@ void CTriangle::Render() {
 	glEnd();
 
 }
+
+

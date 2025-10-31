@@ -4,6 +4,10 @@
 #include <stdio.h>
 //CVectorのインクルード
 #include "CVector.h"
+
+
+
+
 //文字列s1と文字列s2の比較
 //s1とs2が等しければ0を
 //等しくなければ0以外を返す
@@ -24,9 +28,20 @@ void CModel::Render()
 {
 	//可変長配列の要素数だけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
+		//マテリアルの適用
+		mpMaterials[mTriangles[i].MaterialIdx()]->Enabled();
 		//可変長配列に添え字でアクセスする
 		mTriangles[i].Render();
 	}
+}
+
+CModel::~CModel()
+{
+	// mpMaterials の中にある new したマテリアルを全て delete
+	for (int i = 0; i < mpMaterials.size(); i++) {
+		delete mpMaterials[i];
+	}
+
 }
 
 //モデルファイルの入力
@@ -40,7 +55,7 @@ void CModel::Load(const char* obj, const char* mtl) {
 	//ファイルからデータを入力
 	//入力エリアを作成する
 	char buf[256];
-
+	
 	//ファイルのオープン
 	//fopen(ファイル名,モード)
 	//オープンできない時はNULLを返す
@@ -49,16 +64,47 @@ void CModel::Load(const char* obj, const char* mtl) {
 	//fpがNULLの時はエラー
 	if (fp == NULL) {
 		//コンソールにエラー出力して戻る
-		printf("%s file open error￥n", mtl);
+		printf("%s file open error\n", mtl);
 		return;
 	}
+	
+	//マテリアルインデックス
+	int  idx = 0;
 
 	//ファイルから1行入力
 	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
 	//ファイルの最後になるとNULLを返す
 	while (fgets(buf, sizeof(buf), fp) != NULL) 
 	{
-		
+		//データを分割する
+		char str[4][64] = { "", "", "", "" };
+		//文字列からデータを4つ変数へ代入する
+		//sscanf(文字列, 変換指定子, 変数)
+		sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
+		//先頭がnewmtlの時、マテリアルを追加する
+		if (strcmp(str[0], "newmtl") == 0)
+		{
+			CMaterial* pm = new CMaterial();
+			////マテリアル名の設定
+			pm->Name(str[1]);
+			////マテリアルの可変長配列に追加
+			mpMaterials.push_back(pm);
+			////配列の長さを取得
+			idx = mpMaterials.size() - 1;
+
+		}
+		//先頭がｋｄの時、Diffuse	を設定する
+		else if (strcmp(str[0], "Kd") == 0)
+		{
+			mpMaterials[idx]->Diffuse()[0] = atof(str[1]);
+			mpMaterials[idx]->Diffuse()[1] = atof(str[2]);
+			mpMaterials[idx]->Diffuse()[2] = atof(str[3]);
+		}
+		//先頭がｄの時、a	値を設定する
+		else if (strcmp(str[0], "d") == 0)
+		{
+			mpMaterials[idx]->Diffuse()[3] = atof(str[1]);
+		}
 
 	}
 	//ファイルのオープン
@@ -73,6 +119,9 @@ void CModel::Load(const char* obj, const char* mtl) {
 		return;
 	}
 
+
+
+
 	//ファイルから1行入力
 	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
 	//ファイルの最後になるとNULLを返す
@@ -83,6 +132,7 @@ void CModel::Load(const char* obj, const char* mtl) {
 		//文字列からデータを4つ変数へ代入する
 		//sscanf(文字列, 変換指定子, 変数)
 		sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
+
 		//文字列の比較
 		//strcmp(文字列1, 文字列2)
 		//文字列1と文字列2が同じ時0、異なる時0以外を返す
@@ -109,8 +159,24 @@ void CModel::Load(const char* obj, const char* mtl) {
 			CTriangle t;
 			t.Vertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
 			t.Normal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
+			//マテリアル番号の設定
+			t.MaterialIdx(idx);
 			//可変長配列mTrianglesに三角形を追加
 			mTriangles.push_back(t);
+
+		}
+		//先頭がusemtiの時、マテリアルインデックスを取得する
+		else if(strcmp(str[0],"usemtl")==0)
+			//可変長配列を後から比較
+		{
+			for (idx = mpMaterials.size() - 1; idx > 0; idx--)
+				//同じ名前のマテリアルがあればループ終了
+			{
+				if (strcmp(mpMaterials[idx]->Name(), str[1]) == 0)
+				{
+					break;//ループから出る
+				}
+			}
 		}
 	}
 	//ファイルのクローズ
