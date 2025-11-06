@@ -4,6 +4,7 @@
 #include "glut.h"
 #include "CVector.h"
 #include"CTriangle.h"
+#include"CMatrix.h"
 //”wŒiƒ‚ƒfƒ‹
 #define MODEL_BACKGROUND "res\\sky.obj","res\\sky.mtl"
 
@@ -31,6 +32,8 @@ void CApplication::Start()
 	mEye = CVector(1.0f, 2.0f, 3.0f);
 	mModel.Load(MODEL_OBJ);
 	mBackGround.Load(MODEL_BACKGROUND);
+	CMatrix matrix;
+	matrix.Print();
 }
 
 void CApplication::Update()
