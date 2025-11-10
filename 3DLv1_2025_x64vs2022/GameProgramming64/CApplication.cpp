@@ -38,6 +38,8 @@ void CApplication::Start()
 
 void CApplication::Update()
 {
+	
+
 	//頂点１、頂点２、頂点３、法線データの作成
 	CVector v0, v1, v2, n;
 	//法線を上向きで設定する
@@ -81,6 +83,7 @@ void CApplication::Update()
 		mEye = mEye + CVector(0.0f, 0.1f, 0.0f);
 	}
 
-	mModel.Render(CMatrix().Scale(0.1f, 0.1f, 0.1f));
 	mBackGround.Render();
+	mModel.Render(CMatrix().RotateX(90.0f));
+	
 }
