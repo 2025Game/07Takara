@@ -53,7 +53,7 @@ void CApplication::Update()
 	//gluLookAt(視点x,視点y,視点z,中心x,中心y,中心ｚ,上向ｘ,上向y,上向z)
 	gluLookAt(mEye.X(),mEye.Y(),mEye.Z(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	
-	mModel.Render();
+	
 	if (mInput.Key('J'))
 	{
 		mEye = mEye - CVector(0.1f, 0.0f, 0.0f);
@@ -81,6 +81,6 @@ void CApplication::Update()
 		mEye = mEye + CVector(0.0f, 0.1f, 0.0f);
 	}
 
+	mModel.Render(CMatrix().Scale(0.1f, 0.1f, 0.1f));
 	mBackGround.Render();
-
 }
