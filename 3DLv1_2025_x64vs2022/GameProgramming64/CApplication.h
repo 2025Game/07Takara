@@ -10,6 +10,7 @@
 #include "CGame.h"
 #include"CVector.h"
 #include"CModel.h"
+#include"CCharacter3.h"
 class CApplication
 {
 public:
@@ -47,4 +48,6 @@ private:
 	static CTexture mTexture;
 	CEnemy* mpEnemy;
 	CVector mEye;
+	CCharacter3 mCharacter;
+	CCharacter3 mPlayer;
 };

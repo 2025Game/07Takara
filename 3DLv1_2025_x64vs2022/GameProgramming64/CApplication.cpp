@@ -5,6 +5,7 @@
 #include "CVector.h"
 #include"CTriangle.h"
 #include"CMatrix.h"
+#include"CTransform.h"
 //背景モデル
 #define MODEL_BACKGROUND "res\\sky.obj","res\\sky.mtl"
 
@@ -34,6 +35,16 @@ void CApplication::Start()
 	mBackGround.Load(MODEL_BACKGROUND);
 	CMatrix matrix;
 	matrix.Print();
+	mCharacter.Model(&mModel);
+	//既存キャラ
+	mCharacter.Scale(CVector(0.1f, 0.1f, 0.1f));
+
+	// 追加キャラ
+	mPlayer.Model(&mModel);
+	mPlayer.Scale(CVector(0.1f, 0.1f, 0.1f)); // 拡大縮小
+	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f)); // 位置
+	mPlayer.Rotation(CVector(0.0f, 180.0f, 0.0f)); // 回転
+
 }
 
 void CApplication::Update()
@@ -54,7 +65,14 @@ void CApplication::Update()
 	//視点の設定
 	//gluLookAt(視点x,視点y,視点z,中心x,中心y,中心ｚ,上向ｘ,上向y,上向z)
 	gluLookAt(mEye.X(),mEye.Y(),mEye.Z(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-	
+	mCharacter.Update();
+	mCharacter.Render();
+
+	//追加キャラの描画
+	mPlayer.Update();
+	mPlayer.Render();
+
+
 	
 	if (mInput.Key('J'))
 	{
@@ -84,11 +102,7 @@ void CApplication::Update()
 	}
 
 	mBackGround.Render();
-	CMatrix matrix, position, rotation, scale;
-	position.Translate(0.5f, 1.8f, 0.5f); //移動行列設定
-	rotation.RotateY(180.0f); //回転行列設定
-	scale.Scale(0.1f, 0.1f, 0.1f); //拡大縮小行列設定
-	matrix = scale * rotation * position; //合成行列設定
-	mModel.Render(matrix); //モデルの描画
+	
+
 
 }
