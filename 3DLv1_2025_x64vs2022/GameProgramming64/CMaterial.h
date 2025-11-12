@@ -10,6 +10,12 @@
 */
 class CMaterial {
 public:
+
+	//行列値の代入
+	//M(行数, 列数, 値)
+	void M(int row, int col, float value);
+
+
 	//テクスチャ
 	CTexture* Texture();
 	//マテリアルを無効にする
