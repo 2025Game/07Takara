@@ -86,4 +86,56 @@ void CTriangle::UV(const CVector& v0, const CVector& v1, const CVector& v2)
 	mUv[2] = v2;
 }
 
+const CVector& CTriangle::V0() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mV[0];
+}
 
+const CVector& CTriangle::V1() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mV[1];
+}
+
+const CVector& CTriangle::V2() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mV[2];
+}
+
+const CVector& CTriangle::N0() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mN[0];
+}
+
+const CVector& CTriangle::N1() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mN[1];
+}
+
+const CVector& CTriangle::N2() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mN[2];
+}
+
+const CVector& CTriangle::U0() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mUv[0];
+}
+
+const CVector& CTriangle::U1() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mUv[1];
+}
+
+const CVector& CTriangle::U2() const
+{
+	// TODO: return ステートメントをここに挿入します
+	return mUv[2];
+}

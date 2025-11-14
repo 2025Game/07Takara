@@ -1,12 +1,8 @@
 #include "CModel.h"
 //標準入出力のインクルード
-
 #include <stdio.h>
 //CVectorのインクルード
 #include "CVector.h"
-
-
-
 
 //文字列s1と文字列s2の比較
 //s1とs2が等しければ0を
@@ -26,6 +22,42 @@ int strcmp(const char* s1, const char* s2)
 //描画
 void CModel::Render(const CMatrix& m)
 {
+	//行列の退避
+	glPushMatrix();
+	//合成行列を掛ける
+	glMultMatrixf(m.M());
+	//頂点座標の位置を設定
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mPosition);
+	//法線ベクトルの位置を設定
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glNormalPointer(GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mNormal);
+	//テクスチャマッピングの位置を設定
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glTexCoordPointer(2, GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mTextureCoords);
+
+	int first = 0; //描画位置
+	//マテリアル毎に描画する
+	for (size_t i = 0; i < mpMaterials.size(); i++) {
+		//マテリアルを適用する
+		mpMaterials[i]->Enabled();
+		//描画位置からのデータで三角形を描画します
+		glDrawArrays(GL_TRIANGLES, first, mpMaterials[i]->VertexNum());
+		//マテリアルを無効にする
+		mpMaterials[i]->Disabled();
+		//描画位置を移動
+		first += mpMaterials[i]->VertexNum();
+	}
+	//行列を戻す
+	glPopMatrix();
+
+	//頂点座標の配列を無効にする
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//法線の配列を無効にする
+	glDisableClientState(GL_NORMAL_ARRAY);
+	//テクスチャマッピングの配列を無効にする
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
 	//可変長配列の要素数だけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) 
 	{
@@ -61,14 +93,14 @@ CModel::~CModel()
 	for (int i = 0; i < mpMaterials.size(); i++) {
 		delete mpMaterials[i];
 	}
+	delete[] mpVertexes;
 
 }
 
 //モデルファイルの入力
 //Load(モデルファイル名, マテリアルファイル名)
-void CModel::Load(const char* obj, const char* mtl) {
-
-
+void CModel::Load(const char* obj, const char* mtl)
+{
 
 	//テクスチャマッピングの保存(CVector型)
 	std::vector<CVector> uv;
@@ -245,6 +277,32 @@ void CModel::Load(const char* obj, const char* mtl) {
 	}
 	//ファイルのクローズ
 	fclose(fp);
+	CreateVertexBuffer();
+}
+
+void CModel::CreateVertexBuffer()
+{
+	mpVertexes = new CVertex[mTriangles.size() * 3];
+	int idx = 0;
+	for (int i = 0; i < mpMaterials.size(); i++)
+	{
+		for (int j = 0; j < mTriangles.size(); j++)
+		{
+			if (i == mTriangles[j].MaterialIdx())
+			{
+				mpMaterials[i]->VertexNum(mpMaterials[i]->VertexNum() + 3);
+				mpVertexes[idx].mPosition = mTriangles[j].V0();
+				mpVertexes[idx].mNormal = mTriangles[j].N0();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U0();
+				mpVertexes[idx].mPosition = mTriangles[j].V1();
+				mpVertexes[idx].mNormal = mTriangles[j].N1();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U1();
+				mpVertexes[idx].mPosition = mTriangles[j].V2();
+				mpVertexes[idx].mNormal = mTriangles[j].N2();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U2();
+			}
+		}
+	}
 }
 
 

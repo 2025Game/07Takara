@@ -5,6 +5,8 @@
 #ifndef CMODEL_H
 #define CMODEL_H
 #include"CMaterial.h"
+#include"CModel.h"
+#include"CVertex.h"
 /*
 モデルクラス
 モデルデータの入力や表示
@@ -21,11 +23,15 @@ public:
 	//Load(モデルファイル名, マテリアルファイル名)
 	void Load(const char* obj, const char* mtl);
 private:
+	//頂点の配列
+	CVertex* mpVertexes;
+	void CreateVertexBuffer();
 	//三角形の可変長配列
 	std::vector<CTriangle> mTriangles;
 	std::vector<CTriangle> normal;
 	//マテリアルポインタの可変長配列
 	std::vector<CMaterial*>mpMaterials;
+	
 };
 
 #endif
