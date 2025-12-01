@@ -48,7 +48,7 @@ private:
 	static CTexture mTexture;
 	CEnemy* mpEnemy;
 	CVector mEye;
-	CCharacter3 mCharacter;
+	//CCharacter3 mCharacter;
     CPlayer mPlayer;
 
 };

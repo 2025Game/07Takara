@@ -35,9 +35,7 @@ void CApplication::Start()
 	mBackGround.Load(MODEL_BACKGROUND);
 	CMatrix matrix;
 	matrix.Print();
-	mCharacter.Model(&mModel);
-	//既存キャラ
-	mCharacter.Scale(CVector(0.1f, 0.1f, 0.1f));
+
 
 	// 追加キャラ
 	mPlayer.Model(&mModel);
@@ -49,8 +47,21 @@ void CApplication::Start()
 
 void CApplication::Update()
 {
-	
-
+	mPlayer.Update();
+	//カメラのパラメータを作成する
+	CVector e, c, u;//視点、注視点、上方向
+	//視点を求める
+		e = mPlayer.Position() +CVector (0, 1, -3) * mPlayer.MatrixRotate();
+		//注視点を求める
+		c = mPlayer.Position();
+	//上方向を求める
+	u = CVector(0, 1, 0)*mPlayer.MatrixRotate();
+		//カメラの設定
+		gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
+		
+		mPlayer.Render();
+		mBackGround.Render();
+		
 	//頂点１、頂点２、頂点３、法線データの作成
 	CVector v0, v1, v2, n;
 	//法線を上向きで設定する
@@ -62,17 +73,11 @@ void CApplication::Update()
 	//頂点３の座標を設定する
 	v2.Set(0.0f, 0.0f, -0.5f);
 
-	//視点の設定
-	//gluLookAt(視点x,視点y,視点z,中心x,中心y,中心ｚ,上向ｘ,上向y,上向z)
-	gluLookAt(mEye.X(),mEye.Y(),mEye.Z(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-	mCharacter.Update();
-	mCharacter.Render();
+	
+	
 
-	//追加キャラの描画
-	mPlayer.Update();
-	mPlayer.Render();
-
-
+	
+	
 	
 	if (mInput.Key('J'))
 	{
@@ -101,6 +106,6 @@ void CApplication::Update()
 		mEye = mEye + CVector(0.0f, 0.1f, 0.0f);
 	}
 
-	mBackGround.Render();
+	
 
 }
