@@ -106,7 +106,15 @@ void CApplication::Update()
 		mEye = mEye + CVector(0.0f, 0.1f, 0.0f);
 	}
 
-      mPlayer.bullet.Update();
-	mPlayer.bullet.Render();
+	//タスクマネージャの更新
+	mTaskManager.Update();
+	//タスクマネージャの描画
+	mTaskManager.Render();
 
+
+}
+CTaskManager CApplication::mTaskManager;
+CTaskManager* CApplication::TaskManager()
+{
+	return &mTaskManager;
 }
