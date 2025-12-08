@@ -11,6 +11,7 @@
 */
 class CBullet : public CCharacter3 {
 public:
+	
 	//幅と奥行きの設定
 	//Set(幅, 奥行)
 	void Set(float w, float d);
@@ -18,6 +19,7 @@ public:
 	void Update();
 	//描画
 	void Render();
+
 private:
 	//三角形
 	CTriangle mT;
