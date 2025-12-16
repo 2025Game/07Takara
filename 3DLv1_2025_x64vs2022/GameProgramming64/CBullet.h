@@ -4,7 +4,7 @@
 #include "CCharacter3.h"
 //三角形クラスのインクルード
 #include "CTriangle.h"
-
+#include "CCollider.h"
 /*
 弾クラス
 三角形を飛ばす
@@ -25,6 +25,7 @@ private:
 	CTriangle mT;
 	//生存時間
 	int mLife;
+	CCollider mCollider;
 };
 
 #endif
