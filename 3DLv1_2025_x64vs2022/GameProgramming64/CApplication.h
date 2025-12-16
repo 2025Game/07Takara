@@ -32,6 +32,9 @@ public:
 	void Update();
 	static CTaskManager* TaskManager();
 private:
+
+	//C5モデル
+	CModel mModelC5;
 	CModel mBackGround;//背景モデル
 	//モデルクラスのインスタンス作成
 	CModel mModel;
