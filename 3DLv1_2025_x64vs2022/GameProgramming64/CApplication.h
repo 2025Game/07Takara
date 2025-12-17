@@ -30,7 +30,8 @@ public:
 	void Start();
 	//繰り返し実行するプログラム
 	void Update();
-	static CTaskManager* TaskManager();
+	CTaskManager* TaskManager();
+	//static CTaskManager* TaskManager();
 private:
 
 	//C5モデル
@@ -55,5 +56,5 @@ private:
 	CVector mEye;
 	//CCharacter3 mCharacter;
     CPlayer mPlayer;
-	static CTaskManager mTaskManager;
+	//static CTaskManager mTaskManager;
 };
