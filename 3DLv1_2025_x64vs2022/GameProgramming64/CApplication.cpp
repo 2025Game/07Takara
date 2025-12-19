@@ -59,8 +59,11 @@ void CApplication::Start()
 }
 
 void CApplication::Update()
-{//タスクマネージャの更新
+{
+	//タスクマネージャの更新
 	CTaskManager::Instance()->Update();
+	//コリジョンマネージャの衝突処理
+	CCollisionManager::Instance()->Collision();
 	//mPlayer.Update();
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
