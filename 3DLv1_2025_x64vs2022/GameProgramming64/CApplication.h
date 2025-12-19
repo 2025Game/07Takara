@@ -15,7 +15,8 @@
 class CApplication
 {
 public:
-
+	//モデルビュー行列の取得
+	static const CMatrix& ModelViewInverse();
 	static CTexture* Texture();
 	static CCharacterManager* CharacterManager();
 	enum class EState
@@ -33,7 +34,8 @@ public:
 	CTaskManager* TaskManager();
 	//static CTaskManager* TaskManager();
 private:
-
+	//モデルビューの逆行列
+	static CMatrix mModelViewInverse;
 	//C5モデル
 	CModel mModelC5;
 	CModel mBackGround;//背景モデル

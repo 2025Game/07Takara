@@ -10,13 +10,12 @@
 #define MODEL_C5 "res\\c5.obj", "res\\c5.mtl"
 //背景モデル
 #define MODEL_BACKGROUND "res\\sky.obj","res\\sky.mtl"
-
 #define SOUND_BGM "res\\mario.wav" //BGM音声ファイル
 #define SOUND_OVER "res\\mdai.wav" //ゲームオーバー音声ファイル
 //モデルデータの指定
 #define MODEL_OBJ "res\\f14.obj", "res\\f14.mtl"
 #include "CCollisionManager.h"
-
+#include "CBillBoard.h"
 
 CCharacterManager CApplication::mCharacterManager;
 CTexture CApplication::mTexture;
@@ -56,6 +55,9 @@ void CApplication::Start()
 	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f)); // 位置
 	mPlayer.Rotation(CVector(0.0f, 180.0f, 0.0f)); // 回転
 
+	//ビルボードの生成
+	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
+
 }
 
 void CApplication::Update()
@@ -91,6 +93,13 @@ void CApplication::Update()
 	v2.Set(0.0f, 0.0f, -0.5f);
 
 
+	//モデルビュー行列の取得
+	glGetFloatv(GL_MODELVIEW_MATRIX, mModelViewInverse.M());
+	//逆行列の取得
+	mModelViewInverse = mModelViewInverse.Transpose();
+	mModelViewInverse.M(0, 3, 0);
+	mModelViewInverse.M(1, 3, 0);
+	mModelViewInverse.M(2, 3, 0);
 
 
 
@@ -131,6 +140,15 @@ void CApplication::Update()
 	//コライダを描画
 	CCollisionManager::Instance()->Render();
 }
+
+CMatrix CApplication::mModelViewInverse;
+
+const CMatrix& CApplication::ModelViewInverse()
+{
+	return mModelViewInverse;
+}
+
+
 
 	/*CTaskManager CApplication::mTaskManager;
 	CTaskManager* CApplication::TaskManager()

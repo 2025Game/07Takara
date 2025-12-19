@@ -190,6 +190,20 @@ const CMatrix CMatrix::operator*(const CMatrix& m) const
 
 	return t;
 }
+//‰Û‘è–¢Š®¬
+CMatrix CMatrix::Transpose() const
+{
+	CMatrix tmp;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			tmp.mM[i][j] = mM[j][i];
+		}
+	}
+	return tmp;
+}
+
 float* CMatrix::M() const
 {
 	return (float*)mM[0];
