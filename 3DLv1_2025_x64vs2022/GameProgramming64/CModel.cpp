@@ -172,8 +172,6 @@ void CModel::Load(const char* obj, const char* mtl)
 	}
 
 
-
-
 	//ファイルから1行入力
 	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
 	//ファイルの最後になるとNULLを返す
