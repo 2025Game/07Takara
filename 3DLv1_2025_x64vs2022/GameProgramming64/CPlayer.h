@@ -6,6 +6,7 @@
 #include "CCharacter.h"
 #include "CInput.h"
 #include "CBullet.h"
+#include"CCollider.h"
 #include"CColliderLine.h"
 /*
 プレイヤークラス
@@ -14,6 +15,9 @@
 class CPlayer : public CCharacter3
 {
 public:
+	//衝突処理
+	void Collision(CCollider* m, CCollider* o);
+
 	//CBullet bullet;
 	CPlayer()
 		: mLine(this, &mMatrix, CVector(0.0f, 0.0f, -14.0f), CVector(0.0f, 0.0f, 17.0f))
