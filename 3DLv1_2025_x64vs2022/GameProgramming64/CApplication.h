@@ -14,6 +14,7 @@
 #include"CTaskManager.h"
 #include"CColliderTriangle.h"
 #include"CColliderTriangle2.h"
+#include"CC"
 class CApplication
 {
 public:
@@ -36,9 +37,11 @@ public:
 	CTaskManager* TaskManager();
 	//static CTaskManager* TaskManager();
 private:
+	//モデルからコライダを生成
+	CColliderMesh mColliderMesh;
 	//三角コライダの作成
-	CColliderTriangle mColliderTriangle;
-	CColliderTriangle2 mColliderTriangle2;
+	//CColliderTriangle mColliderTriangle;
+	//CColliderTriangle2 mColliderTriangle2;
 	//モデルビューの逆行列
 	static CMatrix mModelViewInverse;
 	//C5モデル
