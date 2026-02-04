@@ -48,5 +48,6 @@ void CColliderLine::Render()
 	glDisable(GL_ALPHA);
 	//s—ñ•œ‹A
 	glPopMatrix();
+
 }
 
