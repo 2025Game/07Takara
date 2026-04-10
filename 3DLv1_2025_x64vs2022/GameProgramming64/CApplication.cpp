@@ -32,19 +32,21 @@ CCharacterManager* CApplication::CharacterManager()
 
 void CApplication::Start()
 {
-
+	//背景モデルから三角コライダを生成
+	//親インスタンスと親行列はなし
+	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
 	//三角コライダの確認
-	mColliderTriangle.Set(nullptr, nullptr
-		, CVector(-50.0f, 0.0f, -50.0f)
-		, CVector(-50.0f, 0.0f, 50.0f)
-		, CVector(50.0f, 0.0f, -50.0f));
+	//mColliderTriangle.Set(nullptr, nullptr
+	//	, CVector(-50.0f, 0.0f, -50.0f)
+	//	, CVector(-50.0f, 0.0f, 50.0f)
+	//	, CVector(50.0f, 0.0f, -50.0f));
 
-	// 三角コライダ 2枚目
-	mColliderTriangle2.Set(nullptr, nullptr,
-		CVector(50.0f, 0.0f, -50.0f),
-		CVector(-50.0f, 0.0f, 50.0f),
-		CVector(50.0f, 0.0f, 50.0f)
-	);
+	//// 三角コライダ 2枚目
+	//mColliderTriangle2.Set(nullptr, nullptr,
+	//	CVector(50.0f, 0.0f, -50.0f),
+	//	CVector(-50.0f, 0.0f, 50.0f),
+	//	CVector(50.0f, 0.0f, 50.0f)
+	//);
 
 	//敵機2対目
 	new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -130.0f),

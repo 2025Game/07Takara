@@ -8,18 +8,25 @@
 #include "CMiss.h"
 #include "CCharacterManager.h"
 #include "CGame.h"
-#include"CVector.h"
-#include"CModel.h"
-#include"CCharacter3.h"
-#include"CTaskManager.h"
-#include"CColliderTriangle.h"
-#include"CColliderTriangle2.h"
-#include"CColliderMesh.h"
+#include "CVector.h"
+#include "CModel.h"
+#include "CCharacter3.h"
+#include "CTaskManager.h"
+#include "CColliderTriangle.h"
+#include "CColliderMesh.h"
+
 class CApplication
 {
 public:
+	~CApplication();
+
+	static CUi* Ui();	//UIクラスのインスタンスを取得
+
 	//モデルビュー行列の取得
 	static const CMatrix& ModelViewInverse();
+
+	//static CTaskManager* TaskManager();
+
 	static CTexture* Texture();
 	static CCharacterManager* CharacterManager();
 	enum class EState
@@ -34,22 +41,30 @@ public:
 	void Start();
 	//繰り返し実行するプログラム
 	void Update();
-	CTaskManager* TaskManager();
-	//static CTaskManager* TaskManager();
 private:
+	static CUi* spUi;	//UIクラスのポインタ
+
 	//モデルからコライダを生成
 	CColliderMesh mColliderMesh;
+
 	//三角コライダの作成
 	//CColliderTriangle mColliderTriangle;
-	//CColliderTriangle2 mColliderTriangle2;
+	//CColliderTriangle mColliderTriangle2;
+
 	//モデルビューの逆行列
 	static CMatrix mModelViewInverse;
 	//C5モデル
 	CModel mModelC5;
-	CModel mBackGround;//背景モデル
+
+	//static CTaskManager mTaskManager;
+	CPlayer mPlayer;
+	//CCharacter3 mCharacter;
+
+	CModel mBackGround; //背景モデル
 	//モデルクラスのインスタンス作成
 	CModel mModel;
 
+	CVector mEye;
 	CSound mSoundBgm;
 	CSound mSoundOver;
 
@@ -63,8 +78,4 @@ private:
 	CBullet* mpBullet;
 	static CTexture mTexture;
 	CEnemy* mpEnemy;
-	CVector mEye;
-	//CCharacter3 mCharacter;
-    CPlayer mPlayer;
-	//static CTaskManager mTaskManager;
 };
