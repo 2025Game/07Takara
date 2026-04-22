@@ -7,6 +7,13 @@
 #define VELOCITY CVector(0.0f, 0.0f, 0.1f) //移動速度
 #define ROTATION_XV	CVector(1.0f, 0.0f, 0.0f) //回転速度
 
+CPlayer* CPlayer::spInstance = nullptr;
+
+CPlayer* CPlayer::Instance()
+{
+	return spInstance;
+}
+
 void CPlayer::Collision(CCollider* m, CCollider* o)
 {
 	//自身のコライダタイプの判定
@@ -33,6 +40,7 @@ CPlayer::CPlayer()
 	, mLine2(this, &mMatrix, CVector(0.0f, 5.0f, -8.0f), CVector(0.0f, -3.0f, -8.0f))
 	, mLine3(this, &mMatrix, CVector(9.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f))
 {
+	spInstance = this;
 }
 
 //CPlayer(位置, 回転, スケール)
@@ -99,3 +107,4 @@ void CPlayer::Collision()
 	CCollisionManager::Instance()->Collision(&mLine2, COLLISIONRANGE);
 	CCollisionManager::Instance()->Collision(&mLine3, COLLISIONRANGE);
 }
+
