@@ -7,6 +7,7 @@
 #include "CBullet.h"
 #include "CColliderLine.h"
 
+
 /*
 プレイヤークラス
 キャラクタクラスを継承
@@ -32,6 +33,8 @@ private:
 	CColliderLine mLine2; //線分コライダ
 	CColliderLine mLine3; //線分コライダ
 	CInput mInput;
+	
+
 };
 
 #endif
