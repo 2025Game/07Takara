@@ -24,6 +24,7 @@ public:
 
 	void Collision();
 private:
+	int mHp;//ヒットポイント
 	//モデルデータ
 	static CModel sModel;
 	//コライダ

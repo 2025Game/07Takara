@@ -15,7 +15,6 @@ public:
 	void Update();
 private:
 	CModel mBackGround; //”wŒiƒ‚ƒfƒ‹
-
 };
 
 #endif

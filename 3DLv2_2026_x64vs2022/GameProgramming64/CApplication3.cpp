@@ -1,17 +1,31 @@
 #include "CApplication3.h"
+
+
 CApplication3::CApplication3()
 {
 }
+
 CApplication3::~CApplication3()
 {
 }
+
 void CApplication3::Start()
 {
-	//タイトルシーンのインスタンスを作成
-	mpScene = std::make_unique<CTitleScene>();
-	mpScene->Load(); //タイトルシーンのロード
+
+    //タイトルシーン
+    mpScene = std::make_unique<CTitleScene>();
+    mpScene->Load();
+    // ゲームシーン生成
+    mpScene = std::make_unique<CGameScene>();
+
+    // ゲームシーン読み込み
+    mpScene->Load();
+
+
 }
+
 void CApplication3::Update()
 {
-	mpScene->Update();//タイトルシーンの更新
+    // ゲームシーン更新
+    mpScene->Update();
 }

@@ -5,6 +5,7 @@
 #include "CBullet.h"
 #define OBJ "res\\f16.obj"  //モデルのファイル
 #define MTL "res\\f16.mtl"  //モデルのマテリアルファイル
+#define HP 3	//耐久値
 
 CModel CEnemy3::sModel;  //モデルデータ作成
 
@@ -40,7 +41,9 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 CEnemy3::CEnemy3()
 	:CCharacter3(1)
 	, mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.4f)
+	, mHp(3)
 {
+
 	//モデルがないときは読み込む
 	if (sModel.Triangles().size() == 0)
 	{
@@ -48,6 +51,7 @@ CEnemy3::CEnemy3()
 	}
 	//モデルのポインタ設定
 	mpModel = &sModel;
+
 }
 //コンストラクタ
 //CEnemy(位置、回転、拡縮)
@@ -97,6 +101,22 @@ void CEnemy3::Update()
 			}
 		}
 	}
+	//HPが0以下の時　撃破
+	if (mHp <= 0)
+	{
+		
+		//15フレーム毎にエフェクト
+		if (mHp % 15 == 0)
+		{
+			//エフェクト生成
+			new CEffect(mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+		}
+		//下降させる
+		mPosition = mPosition - CVector(0.0f, 0.03f, 0.0f);
+		CTransform::Update();
+		return;
+	}
+
 
 }
 
@@ -105,4 +125,12 @@ void CEnemy3::Collision()
 {
 	mCollider.ChangePriority();
 	CCollisionManager::Instance()->Collision(&mCollider, COLLISIONRANGE);
+	mHp;//ヒットポイントの減算
+	//撃破で地面に衝突すると無効
+	if (mHp <= 0)
+	{
+		mEnabled = false;
+	}
+
+
 }
