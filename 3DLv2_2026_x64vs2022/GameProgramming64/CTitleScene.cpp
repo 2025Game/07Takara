@@ -18,6 +18,7 @@ CTitleScene::~CTitleScene()
 void CTitleScene::Load()
 {
 	mFont.Load("FontWhite.png", 1, 64);
+
 }
 
 void CTitleScene::Update()
