@@ -1,5 +1,5 @@
 #include "CColliderMesh.h"
-
+#define COLLISIONRANGE 50
 CColliderMesh::CColliderMesh()
 	: mpColliderTriangles(nullptr)
 {
