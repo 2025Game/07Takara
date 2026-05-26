@@ -2,7 +2,7 @@
 #include "CCollider.h"
 #include "CColliderLine.h"
 #include "CPlayerIdle.h"
-
+#include "CPlayerWalk.h"
 #define GRAVITY 0.0625f // 重力
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
@@ -46,15 +46,36 @@ CXPlayer::CXPlayer()
 	mpState = mpIdle.get();
 	mpState->Start(this);
 	mState = mpState->State();
+	mpWalk = std::make_unique<CPlayerWalk>();
 }
 
 void CXPlayer::Update()
 {
-	//状態䛾更新
+	
+	
+	//状態の更新
 	mpState->Update();
+	//状態の切り替え
+	if (mState != mpState->State())
+	{
+		mState = mpState->State();
+		switch (mState) {
+		case EState::EIDLE:
+			mpState = mpIdle.get();
+			break;
+		case EState::EWALK:
+			mpState = mpWalk.get();
+			break;
+		default:
+			break;
+		}
+		mpState->Start(this);
+	}
 	//課題 GRAVITY䛾大きさ䛰け、下方向へ移動させる
 	CVector gravity(0.0f, -GRAVITY, 0.0f);
 	Position(Position() + gravity);
 	//親クラス䛾更新
 	CXCharacter::Update();
+	
 }
+

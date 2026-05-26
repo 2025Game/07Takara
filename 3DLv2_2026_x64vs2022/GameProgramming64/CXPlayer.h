@@ -7,9 +7,11 @@
 #include <memory>
 #include "CState.h"
 #include "CPlayerIdle.h"
+#include "CPlayerwalk.h"
 class CXPlayer : public CXCharacter
 {
 public:
+    std::unique_ptr<CPlayerWalk> mpWalk; //歩䛟状態
     void Update() override;
     //衝突処理
 //Collision(コライダ1, コライダ2)
