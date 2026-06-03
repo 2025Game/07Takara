@@ -3,6 +3,7 @@
 #include "CColliderLine.h"
 #include "CPlayerIdle.h"
 #include "CPlayerWalk.h"
+#include "CPlayerAttack.h"
 #define GRAVITY 0.0625f // 重力
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
@@ -39,7 +40,7 @@ void CXPlayer::Collision()
 CXPlayer::CXPlayer()
 :mColliderLine(this, &mMatrix, CVector(0.0f, 3.5f, 0.0f ), CVector(0.0f, 0.0f, 0.0f))
 {
-	//待機状態䛾作成
+	//待機状態の作成
 	mpIdle = std::make_unique<CPlayerIdle>();
 	//最初䛿待機状態
 	//get()䛿、unique_ptrが保持し䛶いるポインタを取得する関数
@@ -47,19 +48,24 @@ CXPlayer::CXPlayer()
 	mpState->Start(this);
 	mState = mpState->State();
 	mpWalk = std::make_unique<CPlayerWalk>();
+	//攻撃の状態を作成
+	mpAttack = std::make_unique<CPlayerAttack>();
 }
 
 void CXPlayer::Update()
 {
-	
-	
+
 	//状態の更新
 	mpState->Update();
 	//状態の切り替え
 	if (mState != mpState->State())
 	{
 		mState = mpState->State();
-		switch (mState) {
+		switch (mState) 
+		{
+		case EState::EATTACK:
+			mpState = mpAttack.get();
+			break;
 		case EState::EIDLE:
 			mpState = mpIdle.get();
 			break;

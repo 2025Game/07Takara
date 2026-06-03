@@ -1,27 +1,28 @@
-#pragma once
+ï»¿#pragma once
 class CCollider;
 class CXCharacter;
-//ó‘Ô?í—Ş
+//çŠ¶æ…‹ä›¾ç¨®é¡
 enum class EState
 {
-	ENONE, //ó‘Ô?‚µ
-	EIDLE, //‘Ò‹@
-	EWALK, //•à‚«
+	ENONE, //çŠ¶æ…‹ä›ºã—
+	EIDLE, //å¾…æ©Ÿ
+	EWALK, //æ­©ã
+	EATTACK,//æ”»æ’ƒ
 };
 class CState
 {
 public:
 	virtual ~CState() {};
-	//ó‘Ô?ŠJn
+	//çŠ¶æ…‹ä›¾é–‹å§‹
 	virtual void Start(CXCharacter* parent) {};
-	//ó‘Ô?XV
+	//çŠ¶æ…‹ä›¾æ›´æ–°
 	virtual void Update() {};
-	//Õ“Ëˆ—
-	//Collision(ƒRƒ‰ƒCƒ_1, ƒRƒ‰ƒCƒ_2)
+	//è¡çªå‡¦ç†
+	//Collision(ã‚³ãƒ©ã‚¤ãƒ€1, ã‚³ãƒ©ã‚¤ãƒ€2)
 	virtual void Collision(CCollider* m, CCollider* o) {};
-	//ó‘Ô?æ“¾
+	//çŠ¶æ…‹ä›¾å–å¾—
 	EState State() { return mState; }
 protected:
-	EState mState; //ó‘Ô?í—Ş
-	CXCharacter* mpParent; //e?ƒ|ƒCƒ“ƒ^
+	EState mState; //çŠ¶æ…‹ä›¾ç¨®é¡
+	CXCharacter* mpParent; //è¦ªã®ãƒã‚¤ãƒ³ã‚¿
 };

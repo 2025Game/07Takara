@@ -6,5 +6,6 @@ enum class EScene
 	eNone,//どのシーンにも所属していない
 	eTitle, //タイトルシーン
 	eGame,//ゲームシーン
+	EATTACK,//攻撃
 };
 #endif

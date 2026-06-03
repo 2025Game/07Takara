@@ -15,12 +15,13 @@ void CPlayerWalk::Update()
 {
 	if (mInput.Key('W'))
 	{
-		//前進
+		//Wキー 前進
 		CVector p = mpParent->Position();
 
 		mpParent->Position(
 			p +
 			mpParent->MatrixRotate().VectorZ() * VELOCITY);
+
 
 		//Aキー 左回転
 		if (mInput.Key('A'))
@@ -40,6 +41,13 @@ void CPlayerWalk::Update()
 				CVector(0.0f, ROTATIONSPEED, 0.0f);
 
 			mpParent->Rotation(r);
+		}
+
+		//Iキー　攻撃状態を攻撃
+		if (mInput.Key('I'))
+		{
+			mState = EState::EATTACK;
+			
 		}
 	}
 	else
