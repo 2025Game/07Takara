@@ -4,6 +4,7 @@ class CXCharacter;
 //状態䛾種類
 enum class EState
 {
+	EJUMP,//ジャンプ
 	ENONE, //状態䛺し
 	EIDLE, //待機
 	EWALK, //歩き

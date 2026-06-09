@@ -36,4 +36,10 @@ void CPlayerIdle::Update()
 	{
 		mState = EState::EATTACK;
 	}
+
+	//スペースキーを押すとジャンプ状態に切り替える
+	if (mInput.Key(VK_SPACE))
+	{
+		mState = EState::EJUMP;
+	}
 }

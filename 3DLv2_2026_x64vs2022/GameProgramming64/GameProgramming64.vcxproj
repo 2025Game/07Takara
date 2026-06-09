@@ -49,6 +49,7 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPlayer2.cpp" />
     <ClCompile Include="CPlayerAttack.cpp" />
+    <ClCompile Include="CPlayerJump.cpp" />
     <ClCompile Include="CPlayerldle.cpp" />
     <ClCompile Include="CPlayerWalk.cpp" />
     <ClCompile Include="CPoint.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="CPlayer2.h" />
     <ClInclude Include="CPlayerAttack.h" />
     <ClInclude Include="CPlayerIdle.h" />
+    <ClInclude Include="CPlayerJump.h" />
     <ClInclude Include="CPlayerWalk.h" />
     <ClInclude Include="CPoint.h" />
     <ClInclude Include="CRectangle.h" />

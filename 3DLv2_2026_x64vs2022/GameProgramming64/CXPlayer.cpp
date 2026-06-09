@@ -4,10 +4,13 @@
 #include "CPlayerIdle.h"
 #include "CPlayerWalk.h"
 #include "CPlayerAttack.h"
+#include "CPlayerJump.h"
 #define GRAVITY 0.0625f // 重力
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
 {
+	//状態クラスの衝突処理
+	mpState->Collision(m, o);
 	//自身のコライダタイプの判定
 	switch (m->Type()) {
 	case CCollider::EType::ELINE://線分コライダ
@@ -50,6 +53,7 @@ CXPlayer::CXPlayer()
 	mpWalk = std::make_unique<CPlayerWalk>();
 	//攻撃の状態を作成
 	mpAttack = std::make_unique<CPlayerAttack>();
+	mpJump = std::make_unique<CPlayerJump>();
 }
 
 void CXPlayer::Update()
@@ -73,6 +77,9 @@ void CXPlayer::Update()
 			mpState = mpWalk.get();
 			break;
 		default:
+			break;
+		case EState::EJUMP:
+			mpState = mpJump.get();
 			break;
 		}
 		mpState->Start(this);
