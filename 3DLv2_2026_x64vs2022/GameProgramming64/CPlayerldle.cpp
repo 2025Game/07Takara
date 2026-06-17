@@ -31,7 +31,7 @@ void CPlayerIdle::Update()
 		mState = EState::EWALK;
 	}
 
-	//Iキーを押すと攻撃状態状態に切り替える
+	//Iキーを押すと攻撃状態に切り替える
 	if (mInput.Key('I'))
 	{
 		mState = EState::EATTACK;

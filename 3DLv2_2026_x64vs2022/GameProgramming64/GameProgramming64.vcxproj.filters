@@ -201,6 +201,9 @@
     <ClCompile Include="CPlayerJump.cpp">
       <Filter>ソース ファイル\Game\Character\CPlayer</Filter>
     </ClCompile>
+    <ClCompile Include="CCube.cpp">
+      <Filter>ソース ファイル\Game\Character\CPlayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -366,6 +369,9 @@
       <Filter>ソース ファイル\Game\Character\CPlayer</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerJump.h">
+      <Filter>ソース ファイル\Game\Character\CPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="CCube.h">
       <Filter>ソース ファイル\Game\Character\CPlayer</Filter>
     </ClInclude>
   </ItemGroup>

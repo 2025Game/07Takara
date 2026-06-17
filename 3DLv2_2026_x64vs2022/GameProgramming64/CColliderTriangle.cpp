@@ -56,7 +56,7 @@ void CColliderTriangle::Render()
 	//ライトオン
 	glEnable(GL_LIGHTING);
 	//アルファブレンド無効
-	glDisable(GL_ALPHA);
+	glDisable(GL_BLEND);
 	//行列復帰
 	glPopMatrix();
 }
