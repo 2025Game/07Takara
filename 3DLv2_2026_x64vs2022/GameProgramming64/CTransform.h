@@ -1,40 +1,46 @@
-#ifndef CTRANSFORM_H
+ï»¿#ifndef CTRANSFORM_H
 #define CTRANSFORM_H
 #include "CVector.h"
 /*
-ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒNƒ‰ƒX
-ˆÊ’uA‰ñ“]AŠgkA•ÏŠ·s—ñ‚ÌŠî–{ƒNƒ‰ƒX
+ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¯ãƒ©ã‚¹
+ä½ç½®ã€å›è»¢ã€æ‹¡ç¸®ã€å¤‰æ›è¡Œåˆ—ã®åŸºæœ¬ã‚¯ãƒ©ã‚¹
 */
 class CTransform {
 public:
-	//ˆÊ’u‚Ìæ“¾
+	CTransform();
+	const CMatrix& CombinedMatrix() const;
+	//ä½ç½®ã®å–å¾—
 	const CVector& Position() const;
-	//ˆÊ’u‚Ìİ’è
-	//Position(ˆÊ’u)
+	//ä½ç½®ã®è¨­å®š
+	//Position(ä½ç½®)
 	void Position(const CVector& v);
-	//‰ñ“]’l‚Ìİ’è
-	//Rotation(‰ñ“]’l)
+	//å›è»¢å€¤ã®è¨­å®š
+	//Rotation(å›è»¢å€¤)
 	void Rotation(const CVector& v);
-	//Šg‘åk¬‚Ìİ’è
-	//Scale(Šg‘åk¬)
+	//æ‹¡å¤§ç¸®å°ã®è¨­å®š
+	//Scale(æ‹¡å¤§ç¸®å°)
 	void Scale(const CVector& v);
-	//‡¬s—ñ‚Ìæ“¾
+	//åˆæˆè¡Œåˆ—ã®å–å¾—
 	const CMatrix& Matrix() const;
-	//‰ñ“]s—ñ‚Ìæ“¾
+	//å›è»¢è¡Œåˆ—ã®å–å¾—
 	const CMatrix& MatrixRotate() const;
-	//s—ñXVˆ—
+	//è¡Œåˆ—æ›´æ–°å‡¦ç†
 	void Update();
 	const CVector& Rotation() const;
-	//Update(ˆÊ’u, ‰ñ“], ƒXƒP[ƒ‹)
+	//Update(ä½ç½®, å›è»¢, ã‚¹ã‚±ãƒ¼ãƒ«)
 	void Update(const CVector& pos, const CVector& rot, const CVector& scale);
-protected: //qƒNƒ‰ƒX‚ÍƒAƒNƒZƒX‰Â”\
-	CVector mPosition;	//ˆÊ’u
-	CVector mRotation;	//‰ñ“]
-	CVector mScale;	//Šg‘åk¬
-	CMatrix mMatrixTranslate; //•½sˆÚ“®s—ñ
-	CMatrix mMatrixRotate; //‰ñ“]s—ñ
-	CMatrix mMatrixScale; //Šg‘åk¬s—ñ
-	CMatrix mMatrix; //‡¬s—ñ
+	
+protected: //å­ã‚¯ãƒ©ã‚¹ã¯ã‚¢ã‚¯ã‚»ã‚¹å¯èƒ½
+	CVector mPosition;	//ä½ç½®
+	CVector mRotation;	//å›è»¢
+	CVector mScale;	//æ‹¡å¤§ç¸®å°
+	CMatrix mMatrixTranslate; //å¹³è¡Œç§»å‹•è¡Œåˆ—
+	CMatrix mMatrixRotate; //å›è»¢è¡Œåˆ—
+	CMatrix mMatrixScale; //æ‹¡å¤§ç¸®å°è¡Œåˆ—
+	CMatrix mMatrix; //åˆæˆè¡Œåˆ—
+	//å­ã‚¯ãƒ©ã‚¹ä›¿ã‚¢ã‚¯ã‚»ã‚¹å¯èƒ½
+	CTransform* mpParent; //è¦ªã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	CMatrix mCombinedMatrix; //å­ã¸ã®åˆæˆè¡Œåˆ—
 };
 
 #endif
