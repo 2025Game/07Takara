@@ -6,6 +6,11 @@
 #include "CPlayerAttack.h"
 #include "CPlayerJump.h"
 #define GRAVITY 0.0625f // 重力
+#define _USE_MATH_DEFINES
+#include <math.h>
+//ラジアンを度数䛻変換する䛯め䛾定数
+const float RAD_TO_DEG = 180.0f / (float)M_PI;
+
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
 {
@@ -22,6 +27,8 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			if (CCollider::CollisionTriangleLine(
 				o, m, &adjust))
 			{
+				// 前方の位置を求める
+				CVector forward = (CVector(0.0f, 0.0f, 1.0f) * mMatrix + adjust);
 				//位置の更新(mPosition + adjust)
 				mPosition = mPosition + adjust;
 				//位置の更新
@@ -32,7 +39,12 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 					//親のローカル座標へ変換
 					mPosition = mPosition *
 						o->Parent()->CombinedMatrix().Inverse();
-
+					//親のローカル座標へ変換
+					forward = forward * o->Parent()->CombinedMatrix().Inverse();
+					//ローカル座標への向き
+					forward = forward - mPosition;
+					// Y軸の回転角度を設定
+					mRotation.Y(atan2f(forward.X(), forward.Z()) * RAD_TO_DEG);
 				}
 				//親の設定
 				mpParent = o->Parent();
@@ -45,6 +57,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 }
 void CXPlayer::Collision()
 {
+	
 	//コライダの優先度変更
 	mColliderLine.ChangePriority();
 	//衝突処理を実行
