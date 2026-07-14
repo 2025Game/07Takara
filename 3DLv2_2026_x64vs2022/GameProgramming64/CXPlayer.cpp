@@ -41,11 +41,12 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 						o->Parent()->CombinedMatrix().Inverse();
 					//親のローカル座標へ変換
 					forward = forward * o->Parent()->CombinedMatrix().Inverse();
-					//ローカル座標への向き
-					forward = forward - mPosition;
-					// Y軸の回転角度を設定
-					mRotation.Y(atan2f(forward.X(), forward.Z()) * RAD_TO_DEG);
+					
 				}
+				//ローカル座標への向き
+				forward = forward - mPosition;
+				// Y軸の回転角度を設定
+				mRotation.Y(atan2f(forward.X(), forward.Z()) * RAD_TO_DEG);
 				//親の設定
 				mpParent = o->Parent();
 				//行列の更新
