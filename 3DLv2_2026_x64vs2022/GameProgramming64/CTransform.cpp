@@ -89,4 +89,10 @@ const CVector& CTransform::Rotation() const
 
 void CTransform::Parent(CTransform* parent)
 {
+	mpParent = parent;
+}
+
+CTransform* CTransform::Parent() const
+{
+	return nullptr;
 }

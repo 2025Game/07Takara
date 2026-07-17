@@ -8,6 +8,7 @@
 class CCamera : public CTransform
 {
 public:
+
 	static CCamera* Instance();
 	void Update();
 	//•\¦ƒGƒŠƒA‚Ìİ’è

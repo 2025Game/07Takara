@@ -48,7 +48,7 @@ void CGameScene::Update()
   //gluLookAt(1.0f, 2.0f, 10.0f,
   // 0.0f, 2.0f, 0.0f,
   // 0.0f, 1.0f, 0.0f);
-    mBackGround.Render();
+   // mBackGround.Render();
     // 全キャラクタ更新
     CTaskManager::Instance()->Update();
     //衝突処理の呼び出し

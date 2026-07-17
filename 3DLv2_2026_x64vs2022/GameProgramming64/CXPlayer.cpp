@@ -82,6 +82,7 @@ CXPlayer::CXPlayer()
 	mpAttack = std::make_unique<CPlayerAttack>();
 	mpJump = std::make_unique<CPlayerJump>();
 	CCamera::Instance()->Parent(this);
+	
 }
 
 void CXPlayer::Update()
