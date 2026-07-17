@@ -1,10 +1,11 @@
-#include "CGameScene.h"
+ï»¿#include "CGameScene.h"
 #include "CCharacter3.h"
 #include "CTaskManager.h"
 #include "CXCharacter.h"
 #include "CXPlayer.h"
 #include "CCube.h"
-//”wŒiƒ‚ƒfƒ‹ƒf[ƒ^‚Ìw’è
+#include "CCamera.h"
+//èƒŒæ™¯ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®æŒ‡å®š
 #define MODEL_BACKGROUND "res\\sky.obj","res\\sky.mtl"
 
 CGameScene::CGameScene()
@@ -17,18 +18,18 @@ void CGameScene::Load()
 
 {
    
-    //‰Û‘è@”wŒiƒ‚ƒfƒ‹ƒf[ƒ^‚Ì“Ç‚İ‚İ
+    //èª²é¡Œã€€èƒŒæ™¯ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
     mBackGround.Load(MODEL_BACKGROUND);
-    //ƒLƒƒƒ‰ƒNƒ^‚ÌƒCƒ“ƒXƒ^ƒ“ƒXì¬
+    //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä½œæˆ
     CCharacter3* character = new CCharacter3();
-    //ƒLƒƒƒ‰ƒNƒ^‚Ìƒ‚ƒfƒ‹‚Ìİ’è
+    //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ã®ãƒ¢ãƒ‡ãƒ«ã®è¨­å®š
     character->Model(&mBackGround);
     mPlayer.Load(MODEL_FILE);
-    // XƒLƒƒƒ‰ƒNƒ^¶¬
+    // Xã‚­ãƒ£ãƒ©ã‚¯ã‚¿ç”Ÿæˆ
     CXCharacter* xchar = new CXPlayer();
-    // mPlayer‚ğİ’è
+    // mPlayerã‚’è¨­å®š
     xchar->Init(&mPlayer);
-    // ƒvƒŒƒCƒ„[ˆÊ’uİ’è
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ä½ç½®è¨­å®š
     xchar->Position(CVector(1.0f, 0.0f, 0.0f));
     mColliderMesh.Set(nullptr, nullptr, &mBackGround);
    
@@ -36,24 +37,27 @@ void CGameScene::Load()
     CCharacter3* cube = new CCube();
     cube->Position(CVector(0.0f, -0.0f, -9.0f));
     cube->Scale(CVector(10.0f, 0.5f, 10.0f));
+
+    //ã‚«ãƒ¡ãƒ©ä½ç½®ã®è¨­å®š
+    CCamera::Instance()->Scale(CVector(0.0f, 1.0f, -7.0f));
 }
 
 void CGameScene::Update()
 {
-    // ƒJƒƒ‰İ’è
-    gluLookAt(
-        1.0f, 2.0f, 10.0f,
-        0.0f, 2.0f, 0.0f,
-        0.0f, 1.0f, 0.0f
-    );
+    //ã‚«ãƒ¡ãƒ©ä›¾è¨­å®š
+  //gluLookAt(1.0f, 2.0f, 10.0f,
+  // 0.0f, 2.0f, 0.0f,
+  // 0.0f, 1.0f, 0.0f);
     mBackGround.Render();
-    // ‘SƒLƒƒƒ‰ƒNƒ^XV
+    // å…¨ã‚­ãƒ£ãƒ©ã‚¯ã‚¿æ›´æ–°
     CTaskManager::Instance()->Update();
-    //Õ“Ëˆ—‚ÌŒÄ‚Ño‚µ
+    //è¡çªå‡¦ç†ã®å‘¼ã³å‡ºã—
     CTaskManager::Instance()->Collision();
-    // ‘SƒLƒƒƒ‰ƒNƒ^•`‰æ
+    //ã‚«ãƒ¡ãƒ©ã®æ›´æ–°
+    CCamera::Instance()->Update();
+    // å…¨ã‚­ãƒ£ãƒ©ã‚¯ã‚¿æç”»
     CTaskManager::Instance()->Render();
-    //ƒRƒ‰ƒCƒ_‚Ì•`‰æ
+    //ã‚³ãƒ©ã‚¤ãƒ€ã®æç”»
     CCollisionManager::Instance()->Render();
 
     

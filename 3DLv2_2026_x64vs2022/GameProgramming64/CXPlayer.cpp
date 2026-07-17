@@ -8,6 +8,7 @@
 #define GRAVITY 0.0625f // 重力
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "CCamera.h"
 //ラジアンを度数䛻変換する䛯め䛾定数
 const float RAD_TO_DEG = 180.0f / (float)M_PI;
 
@@ -80,6 +81,7 @@ CXPlayer::CXPlayer()
 	//攻撃の状態を作成
 	mpAttack = std::make_unique<CPlayerAttack>();
 	mpJump = std::make_unique<CPlayerJump>();
+	CCamera::Instance()->Parent(this);
 }
 
 void CXPlayer::Update()
@@ -109,12 +111,16 @@ void CXPlayer::Update()
 			break;
 		}
 		mpState->Start(this);
+
 	}
 	//課題 GRAVITY䛾大きさ䛰け、下方向へ移動させる
 	CVector gravity(0.0f, -GRAVITY, 0.0f);
 	Position(Position() + gravity);
 	//親クラス䛾更新
 	CXCharacter::Update();
+	
+	//カメラの位置をプレイヤーの位置から、少し上にする
+	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
 	
 }
 

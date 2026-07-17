@@ -36,3 +36,40 @@ void CCamera::End()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 }
+
+CCamera* CCamera::spInstance = nullptr;
+CCamera* CCamera::Instance()
+{
+	if (spInstance == nullptr)
+	{
+		spInstance = new CCamera();
+	}
+	return spInstance;
+}
+
+void CCamera::Update()
+{
+	//課題 Jキーで左回転、Lキーで右回転
+	if (mInput.Key('J'))
+	{
+		mRotation.Y(mRotation.Y() + 2.0f);
+	}
+
+	// Lキーで右回転
+	if (mInput.Key('L'))
+	{
+		mRotation.Y(mRotation.Y() - 2.0f);
+	}
+
+	CTransform::Update();
+	//カメラの位置、注視点、上方向を計算する
+	CVector mCenter = CVector() * mMatrix;
+	CVector mEye = CVector(1.0f, 1.0f, 1.0f) * mMatrix;
+	CVector mUp = CVector(0.0f, 1.0f, 0.0f);
+	//カメラの位置、注視点、上方向を設定する
+	gluLookAt(mEye.X(), mEye.Y(), mEye.Z()
+		, mCenter.X(), mCenter.Y(), mCenter.Z()
+		, mUp.X(), mUp.Y(), mUp.Z());
+
+}
+

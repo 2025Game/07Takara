@@ -7,6 +7,8 @@
 */
 class CTransform {
 public:
+	//拡縮の取得
+	const CVector& Scale() const;
 	CTransform();
 	const CMatrix& CombinedMatrix() const;
 	//位置の取得
@@ -27,6 +29,10 @@ public:
 	//行列更新処理
 	void Update();
 	const CVector& Rotation() const;
+	//親の設定
+	void Parent(CTransform* parent);
+	//親の取得
+	CTransform* Parent() const;
 	//Update(位置, 回転, スケール)
 	void Update(const CVector& pos, const CVector& rot, const CVector& scale);
 	

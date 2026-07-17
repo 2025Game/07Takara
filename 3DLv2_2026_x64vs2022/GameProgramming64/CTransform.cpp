@@ -39,6 +39,11 @@ void CTransform::Update(const CVector& pos, const CVector& rot
 	Update();
 }
 
+const CVector& CTransform::Scale() const
+{
+	return mScale;
+}
+
 CTransform::CTransform()
 {
 	mpParent = nullptr;
@@ -80,4 +85,8 @@ void CTransform::Update() {
 const CVector& CTransform::Rotation() const
 {
 	return mRotation;
+}
+
+void CTransform::Parent(CTransform* parent)
+{
 }
