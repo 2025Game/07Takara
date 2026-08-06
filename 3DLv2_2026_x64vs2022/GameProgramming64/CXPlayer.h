@@ -10,6 +10,7 @@
 #include "CPlayerwalk.h"
 #include "CPlayerAttack.h"
 #include "CPlayerJump.h"
+#include "CColliderCapsule.h"
 class CXPlayer : public CXCharacter
 {
 public:
@@ -24,7 +25,7 @@ public:
     CColliderLine mColliderLine;
     CXPlayer();
 private:
-    
+    CColliderCapsule mColliderCapsule;
     EState mState; //状態䛾保持
     CState* mpState; //状態処理
     std::unique_ptr<CPlayerIdle> mpIdle; //待機状態

@@ -16,6 +16,7 @@ const float RAD_TO_DEG = 180.0f / (float)M_PI;
 void CXPlayer::Collision(CCollider* m, CCollider* o)
 {
 	//状態クラスの衝突処理
+
 	mpState->Collision(m, o);
 	//自身のコライダタイプの判定
 	switch (m->Type()) {
@@ -69,6 +70,12 @@ void CXPlayer::Collision()
 
 CXPlayer::CXPlayer()
 :mColliderLine(this, &mMatrix, CVector(0.0f, 3.5f, 0.0f ), CVector(0.0f, 0.0f, 0.0f))
+, mColliderCapsule(
+	this,
+	&mMatrix,
+	CVector(0.0f, 3.5f, 0.0f),
+	CVector(0.0f, 0.0f, 0.0f),
+	0.5f)
 {
 	//待機状態の作成
 	mpIdle = std::make_unique<CPlayerIdle>();
@@ -122,6 +129,6 @@ void CXPlayer::Update()
 	
 	//カメラの位置をプレイヤーの位置から、少し上にする
 	CCamera::Instance()->Position(CVector(0.0f, 4.0f, 0.0f));
-	
+	mColliderCapsule.Update();
 }
 

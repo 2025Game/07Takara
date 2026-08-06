@@ -2,6 +2,7 @@
 #include "CRectangle.h"
 #include "CTexture.h"
 
+#include "CColliderCapsule.h"
 
 class CCharacter : public CRectangle
 {
@@ -15,6 +16,7 @@ public:
 		EPLAYER,	//プレイヤー
 		ETURN,	//折り返し
 		EBLOCK,	//ブロック
+		ECAPSULE,
 	};
 	ETag Tag();
 
@@ -48,6 +50,7 @@ protected:
 	EState mState;
 
 private:
+	
 	CTexture* mpTexture;
 	int mLeft, mRight, mBottom, mTop;
 };

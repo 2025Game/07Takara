@@ -204,6 +204,9 @@
     <ClCompile Include="CTransform.cpp">
       <Filter>ソース ファイル\BaseSystem\Object\Character</Filter>
     </ClCompile>
+    <ClCompile Include="CColliderCapsule.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -373,6 +376,9 @@
     </ClInclude>
     <ClInclude Include="CGameScene.h">
       <Filter>ソース ファイル\Game\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CColliderCapsule.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
