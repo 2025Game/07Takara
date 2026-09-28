@@ -121,10 +121,10 @@ void CXPlayer::Update()
 		mpState->Start(this);
 
 	}
-	//課題 GRAVITY䛾大きさ䛰け、下方向へ移動させる
+	//課題 GRAVITYの大きさだけ、下方向へ移動させる
 	CVector gravity(0.0f, -GRAVITY, 0.0f);
 	Position(Position() + gravity);
-	//親クラス䛾更新
+	//親クラスの更新
 	CXCharacter::Update();
 	
 	//カメラの位置をプレイヤーの位置から、少し上にする

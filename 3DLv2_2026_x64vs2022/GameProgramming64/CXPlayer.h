@@ -26,7 +26,7 @@ public:
     CXPlayer();
 private:
     CColliderCapsule mColliderCapsule;
-    EState mState; //状態䛾保持
+    EState mState; //状態の保持
     CState* mpState; //状態処理
     std::unique_ptr<CPlayerIdle> mpIdle; //待機状態
     std::unique_ptr<CPlayerAttack> mpAttack; //攻撃状態
