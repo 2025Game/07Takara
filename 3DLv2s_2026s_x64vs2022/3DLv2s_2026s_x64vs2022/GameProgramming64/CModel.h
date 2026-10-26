@@ -12,6 +12,7 @@
 */
 class CModel {
 public:
+	
 	const std::vector<CTriangle>& Triangles() const;
 
 	//描画
@@ -27,6 +28,8 @@ public:
 	//Load(モデルファイル名, マテリアルファイル名)
 	void Load(const char* obj, const char* mtl);
 private:
+	//cが区切り文字ならtrueを返す
+	bool IsDelimiter(char c);
 	//頂点の配列
 	CVertex* mpVertexes;
 	void CreateVertexBuffer();

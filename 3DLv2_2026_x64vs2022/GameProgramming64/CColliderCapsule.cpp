@@ -1,4 +1,21 @@
 ﻿#include "CColliderCapsule.h"
+bool CCollider::CollisionCapsuleCapsule(
+	CCollider* m, CCollider* o, CVector* adjust)
+{
+	CVector mp1, mp2;
+	float t1, t2;
+	float radius = m->mRadius + o->mRadius;
+	*adjust = CVector();
+	if (CalcLineLineDist(m->mV[0], m->mV[1],
+		o->mV[0], o->mV[1], &mp1, &mp2, &t1, &t2) < radius)
+	{
+		*adjust = mp1 - mp2;
+		float len = radius - adjust->Length();
+		*adjust = adjust->Normalize() * len;
+		return true;
+	}
+	return false;
+}
 CColliderCapsule::CColliderCapsule(CCharacter3* parent, const CMatrix*
 	matrix, const CVector& v0, const CVector& v1, float radius)
 {

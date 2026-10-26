@@ -21,6 +21,7 @@ int strcmp(const char* s1, const char* s2)
 	return s1[i] - s2[i];
 }
 
+
 const std::vector<CTriangle>& CModel::Triangles() const
 {
 	return mTriangles;
@@ -261,6 +262,11 @@ void CModel::Load(const char* obj, const char* mtl) {
 	fclose(fp);
 
 	CreateVertexBuffer();
+}
+
+bool CModel::IsDelimiter(char c)
+{
+	return false;
 }
 
 void CModel::CreateVertexBuffer()
